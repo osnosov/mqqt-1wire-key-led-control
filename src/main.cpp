@@ -52,9 +52,9 @@ Sensor AD[] = {
 
 uint8_t numberDevices;
 
-uint8_t masKey[11*2];
-uint8_t statusKeyBefore[11*2];
-uint8_t statusKeyAfter[11*2];
+uint8_t masKey[19*2];
+uint8_t statusKeyBefore[19*2];
+uint8_t statusKeyAfter[19*2];
 
 OneWire oneWire(ONEWIRE_PIN);
 uint8_t address[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -315,8 +315,10 @@ void sendAllDataMqtt() {
 void readSensor(){
   for (int i = 0; i < numberDevices; i++){
     if (AD[i].type == 0 && AD[i].valid == true) {
-//      Serial.print(F("Чтение выключателя i = "));
-//      Serial.println(i);
+      //Serial.print(F("Чтение выключателя i = "));
+      //Serial.print(i);
+      //Serial.print(F("; stateEthernetConnected = "));
+      //Serial.println(stateEthernetConnected);
       byte state = read(AD[i].addr);
       if (state == -1) {
         Serial.print(F("Failed reading the DS2413 nomber "));
@@ -352,6 +354,12 @@ void readSensor(){
         
       }
     }
+    //else {
+    //  Serial.print(F("i = "));
+    //  Serial.print(i);
+    //  Serial.print(F("; stateEthernetConnected = "));
+    //  Serial.println(stateEthernetConnected);
+    //}
   }  
 }
 
